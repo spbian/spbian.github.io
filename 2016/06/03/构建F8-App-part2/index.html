@@ -1,0 +1,1109 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="f8APP,RN教程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="VeritasAmat-泠泠御风" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="React Native 的一大优势是：可以只用一种语法编写分别运行在 iOS 和 Android 平台上的程序，且可重用部分应用逻辑。然而，与“一次编写，到处运行”的理念不同的是，React Native 的哲学是“一次学习，到处编写”。如此一来，即使用 React Native 编写不同平台的程序，也可以尽可能贴合每个平台的特性。从 UI 的角度来看，每个平台都有自己独特的视觉风格、UI 范例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建F8-App part2">
+<meta property="og:url" content="http://yoursite.com/2016/06/03/构建F8-App-part2/index.html">
+<meta property="og:site_name" content="VeritasAmat-泠泠御风">
+<meta property="og:description" content="React Native 的一大优势是：可以只用一种语法编写分别运行在 iOS 和 Android 平台上的程序，且可重用部分应用逻辑。然而，与“一次编写，到处运行”的理念不同的是，React Native 的哲学是“一次学习，到处编写”。如此一来，即使用 React Native 编写不同平台的程序，也可以尽可能贴合每个平台的特性。从 UI 的角度来看，每个平台都有自己独特的视觉风格、UI 范例">
+<meta property="og:image" content="http://makeitopen.com/static/images/iOS%20vs%20Android%20Segmented%20Controls@3x.png">
+<meta property="og:image" content="http://makeitopen.com/static/images/iOS%20vs.%20Android@3x.png">
+<meta property="og:image" content="http://makeitopen.com/static/images/button-playground.gif">
+<meta property="og:updated_time" content="2017-02-20T11:30:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建F8-App part2">
+<meta name="twitter:description" content="React Native 的一大优势是：可以只用一种语法编写分别运行在 iOS 和 Android 平台上的程序，且可重用部分应用逻辑。然而，与“一次编写，到处运行”的理念不同的是，React Native 的哲学是“一次学习，到处编写”。如此一来，即使用 React Native 编写不同平台的程序，也可以尽可能贴合每个平台的特性。从 UI 的角度来看，每个平台都有自己独特的视觉风格、UI 范例">
+<meta name="twitter:image" content="http://makeitopen.com/static/images/iOS%20vs%20Android%20Segmented%20Controls@3x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+  <title> 构建F8-App part2 | VeritasAmat-泠泠御风 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63a07f478f5ee797f027057b4eb21d9e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">VeritasAmat-泠泠御风</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/03/构建F8-App-part2/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Shaopei Bian">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="VeritasAmat-泠泠御风">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="VeritasAmat-泠泠御风" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                构建F8-App part2
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-03T19:03:01+08:00">
+                2016-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReactNative/" itemprop="url" rel="index">
+                    <span itemprop="name">ReactNative</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/06/03/构建F8-App-part2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/03/构建F8-App-part2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/06/03/构建F8-App-part2/" class="leancloud_visitors" data-flag-title="构建F8-App part2">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>React Native 的一大优势是：可以只用一种语法编写分别运行在 iOS 和 Android 平台上的程序，且可重用部分应用逻辑。然而，与“一次编写，到处运行”的理念不同的是，React Native 的哲学是“一次学习，到处编写”。如此一来，即使用 React Native 编写不同平台的程序，也可以尽可能贴合每个平台的特性。从 UI 的角度来看，每个平台都有自己独特的视觉风格、UI 范例甚或是技术层面的功能，那我们设计出一个统一的 UI 基础组件，然后再按照各平台特性进行调整岂不乐乎？</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在后续的所有教程中，我们会仔细解读 App 的源代码，请克隆一份<a href="https://github.com/fbsamples/f8app" target="_blank" rel="external">源代码</a>到本地可访问的路径，然后根据<a href="http://makeitopen.com/tutorials/building-the-f8-app/local-setup/" target="_blank" rel="external">配置说明</a>在本地运行 App。在本章的教程中，你只需要阅读相关源代码。</p>
+<h1 id="React-Native-思维模式"><a href="#React-Native-思维模式" class="headerlink" title="React Native 思维模式"></a>React Native 思维模式</h1><p>在你写任何 React 代码之前，请认真思考这个至关重要的问题：<strong>如何才能尽可能多地重用代码？</strong></p>
+<p>React Native 的理念是针对每个平台分而治之，代码重用的做法看起来与之相违背，好像我们就应该为每个平台定制其专属的视觉组件一样，但实际上我们仍需努力让每个平台上的代码尽可能多地统一。</p>
+<p>构建一套 React Native 应用视觉组件的关键点在于如何最好地实现平台抽象。开发人员和设计师可以列出应用中需要重用的组件，例如按钮、容器、列表行，头部等等，只有在必要的时候才单独为每个平台设计特定的组件。</p>
+<p>当然，有一些组件相对于其它组件而言更为复杂，我们先一起来看看 F8 应用中不同的组件有什么区别。</p>
+<h1 id="各种各样的小组件"><a href="#各种各样的小组件" class="headerlink" title="各种各样的小组件"></a>各种各样的小组件</h1><p>请看 F8 应用的示例图：</p>
+<p><img src="http://makeitopen.com/static/images/iOS%20vs%20Android%20Segmented%20Controls@3x.png" alt="iOS and Android Segmented Controls Comparison"></p>
+<p>在 iOS 版本中，我们用 iOS 系统中很常见的圆角边框风格来切分 Tab 控制；在 Android 版本中，我们用下划线的风格来标示这个组件。而这两个控制组件的功能其实完全相同。<br>  所以，即使两者样式稍有不同，但是实现的功能相同，所以我们可以用同一套代码抽象此处的逻辑，从而可以尽可能多地重用代码。<br>我们针对像这样的小组件做了很多跨平台重用逻辑代码的案例，比如一个简单的文本按钮，在每个平台上我们都会设计不同的 hover 和 active 状态的样式，但是除开这些视觉上的细微的差异外，逻辑功能完全相同。所以我们总结了一个抽象 React Native 视觉组件的最佳实践方法：设计一套相同的逻辑代码，然后在控制语句中编写其余需要差异化的部分。</p>
+<p>以下是这个组件的示例代码（来自 <code>&lt;F8SegmentedControl&gt;</code>）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/common/F8SegmentedControl.js */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Segment</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  props: &#123;</div><div class="line">    <span class="attr">value</span>: string;</div><div class="line">    isSelected: boolean;</div><div class="line">    selectionColor: string;</div><div class="line">    onPress: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">void</span>;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    <span class="keyword">var</span> selectedButtonStyle;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.props.isSelected) &#123;</div><div class="line">      selectedButtonStyle = &#123; <span class="attr">borderColor</span>: <span class="keyword">this</span>.props.selectionColor &#125;;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> deselectedLabelStyle;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.props.isSelected &amp;&amp; Platform.OS === <span class="string">'android'</span>) &#123;</div><div class="line">      deselectedLabelStyle = styles.deselectedLabel;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> title = <span class="keyword">this</span>.props.value &amp;&amp; <span class="keyword">this</span>.props.value.toUpperCase();</div><div class="line"></div><div class="line">    <span class="keyword">var</span> accessibilityTraits = [<span class="string">'button'</span>];</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.props.isSelected) &#123;</div><div class="line">      accessibilityTraits.push(<span class="string">'selected'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      <span class="xml"><span class="tag">&lt;<span class="name">TouchableOpacity</span></span></span></div><div class="line">        <span class="attr">accessibilityTraits</span>=<span class="string">&#123;accessibilityTraits&#125;</span></div><div class="line">        <span class="attr">activeOpacity</span>=<span class="string">&#123;0.8&#125;</span></div><div class="line">        <span class="attr">onPress</span>=<span class="string">&#123;this.props.onPress&#125;</span></div><div class="line">        <span class="attr">style</span>=<span class="string">&#123;[styles.button,</span> <span class="attr">selectedButtonStyle</span>]&#125;&gt;</div><div class="line">        <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;[styles.label,</span> <span class="attr">deselectedLabelStyle</span>]&#125;&gt;</span></div><div class="line">          &#123;title&#125;</div><div class="line">        <span class="tag">&lt;/<span class="name">Text</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">TouchableOpacity</span>&gt;</span></div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这段代码中，我们为每一种平台分别应用了不同的样式（用到了 React Native 的 <a href="https://facebook.github.io/react-native/docs/platform-specific-code.html#platform-module" target="_blank" rel="external">Platform 模块</a>）。各平台中的 Tab 按钮都应用了相同的通用样式，同时也根据各平台特性定制了独占样式（同样出自 <code>&lt;F8SegmentedControl&gt;</code>）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/common/F8SegmentedControl.js */</span></div><div class="line"><span class="keyword">var</span> styles = F8StyleSheet.create(&#123;</div><div class="line">  <span class="attr">container</span>: &#123;</div><div class="line">    <span class="attr">flexDirection</span>: <span class="string">'row'</span>,</div><div class="line">    <span class="attr">backgroundColor</span>: <span class="string">'transparent'</span>,</div><div class="line">    <span class="attr">ios</span>: &#123;</div><div class="line">      <span class="attr">paddingBottom</span>: <span class="number">6</span>,</div><div class="line">      <span class="attr">justifyContent</span>: <span class="string">'center'</span>,</div><div class="line">      <span class="attr">alignItems</span>: <span class="string">'center'</span>,</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">android</span>: &#123;</div><div class="line">      <span class="attr">paddingLeft</span>: <span class="number">60</span>,</div><div class="line">    &#125;,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">button</span>: &#123;</div><div class="line">    <span class="attr">borderColor</span>: <span class="string">'transparent'</span>,</div><div class="line">    <span class="attr">alignItems</span>: <span class="string">'center'</span>,</div><div class="line">    <span class="attr">justifyContent</span>: <span class="string">'center'</span>,</div><div class="line">    <span class="attr">backgroundColor</span>: <span class="string">'transparent'</span>,</div><div class="line">    <span class="attr">ios</span>: &#123;</div><div class="line">      <span class="attr">height</span>: HEIGHT,</div><div class="line">      <span class="attr">paddingHorizontal</span>: <span class="number">20</span>,</div><div class="line">      <span class="attr">borderRadius</span>: HEIGHT / <span class="number">2</span>,</div><div class="line">      <span class="attr">borderWidth</span>: <span class="number">1</span>,</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">android</span>: &#123;</div><div class="line">      <span class="attr">paddingBottom</span>: <span class="number">6</span>,</div><div class="line">      <span class="attr">paddingHorizontal</span>: <span class="number">10</span>,</div><div class="line">      <span class="attr">borderBottomWidth</span>: <span class="number">3</span>,</div><div class="line">      <span class="attr">marginRight</span>: <span class="number">10</span>,</div><div class="line">    &#125;,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">label</span>: &#123;</div><div class="line">    <span class="attr">letterSpacing</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">fontSize</span>: <span class="number">12</span>,</div><div class="line">    <span class="attr">color</span>: <span class="string">'white'</span>,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">deselectedLabel</span>: &#123;</div><div class="line">    <span class="attr">color</span>: <span class="string">'rgba(255, 255, 255, 0.7)'</span>,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在这段代码中我们使用了一个改编自 <a href="https://facebook.github.io/react-native/docs/stylesheet.html" target="_blank" rel="external">React Native <code>StyleSheet</code> API</a> 的函数 F8StyleSheet，它可以针对各平台分别进行样式转换操作：</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">create</span><span class="params">(styles: <span class="keyword">Object</span>)</span>:</span> <span class="comment">&#123;[name: string]: number&#125;</span> <span class="comment">&#123;</span></div><div class="line">  const platformStyles = &#123;&#125;;</div><div class="line">  <span class="keyword">Object</span>.keys(styles).forEach((<span class="keyword">name</span>) =&gt; <span class="comment">&#123;</span></div><div class="line">    let &#123;ios, android, ...style&#125; = <span class="comment">&#123;...styles[name]&#125;</span>;</div><div class="line">    <span class="keyword">if</span> (ios &amp;&amp; <span class="keyword">Platform</span>.OS === <span class="string">'ios'</span>) <span class="comment">&#123;</span></div><div class="line">      style = &#123;...style, ...ios&#125;;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (android &amp;&amp; <span class="keyword">Platform</span>.OS === <span class="string">'android'</span>) <span class="comment">&#123;</span></div><div class="line">      style = &#123;...style, ...android&#125;;</div><div class="line">    &#125;</div><div class="line">    platformStyles[<span class="keyword">name</span>] = style;</div><div class="line">  &#125;);</div><div class="line">  return StyleSheet.create(platformStyles);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这个 <code>F8StyleSheet</code> 函数中我们解析了前面示例代码中的 <code>styles</code> 对象，如果我们发现了匹配当前平台的 <code>ios</code> 或 <code>android</code> 键值，就会应用相应的样式，如果都没有，则应用默认样式。以此看来，减少代码重复的另一种做法是：尽可能多地重用通用样式代码。</p>
+<p>现在，我们已经可以在我们的App中重用这个组件了，它也可以根据不同的平台自动匹配相应的样式。</p>
+<h1 id="分离复杂差异"><a href="#分离复杂差异" class="headerlink" title="分离复杂差异"></a>分离复杂差异</h1><p>如果一个组件在各平台上的差异不仅仅是样式的不同，也存在大量的逻辑代码差异，那我们就需要换一种方式了。正如下图所示，iOS 和 Android 平台中最高阶的菜单导航组件就有非常大的差异：</p>
+<p><img src="http://makeitopen.com/static/images/iOS%20vs.%20Android@3x.png" alt="iOS and Android Main Navigation Comparison"></p>
+<p>正如你所见，在 iOS 版本中我们在屏幕底部放了一个固定的 Tab，而在 Android 版本中，我们却实现了一种可划出的侧边栏。这两种组件其实是本质上的不同，况且一般来说，在 Android 应用中，这种侧边栏通常还会包含更多的菜单选项，例如：退出登录。</p>
+<p>你当然可以将这两种菜单模式写到一个组件中去，但是这个组件会变得异常臃肿，所有的差异不得不通过大量的分支语句来实现，你一定会在不久的将来对这段代码感到陌生难懂。</p>
+<p>其实，我们可以用 React Native 内建的平台特定的扩展来解决这个问题。我们可以创建两个独立的应用，在下面的示例中我们会创建两个组件，分别命名为：<code>F8TabsView.ios.js</code> 和 <code>F8TabsView.android.js</code>。React Native 会自动检测当前平台并根据扩展命名加载相应的组件。</p>
+<h1 id="内建UI组件"><a href="#内建UI组件" class="headerlink" title="内建UI组件"></a>内建UI组件</h1><p>在每一个 <code>FBTabsView</code> 组件中，我们也可以重用一些内建的 React Native UI 组件，Android 版本使用的是 <a href="http://facebook.github.io/react-native/docs/drawerlayoutandroid.html" target="_blank" rel="external"><code>DrawerLayoutAndroid</code></a>（很显然，只在 Android 中可用）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/tabs/F8TabsView.android.js */</span></div><div class="line">render() &#123;</div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">DrawerLayoutAndroid</span></span></span></div><div class="line">      <span class="attr">ref</span>=<span class="string">"drawer"</span></div><div class="line">      <span class="attr">drawerWidth</span>=<span class="string">&#123;300&#125;</span></div><div class="line">      <span class="attr">drawerPosition</span>=<span class="string">&#123;DrawerLayoutAndroid.positions.Left&#125;</span></div><div class="line">      <span class="attr">renderNavigationView</span>=<span class="string">&#123;this.renderNavigationView&#125;</span>&gt;</div><div class="line">      <span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;styles.content&#125;</span> <span class="attr">key</span>=<span class="string">&#123;this.props.activeTab&#125;</span>&gt;</span></div><div class="line">        &#123;this.renderContent()&#125;</div><div class="line">      <span class="tag">&lt;/<span class="name">View</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">DrawerLayoutAndroid</span>&gt;</span></div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在第8行代码中，我们在当前的类中显式地为 drawer 组件指定了 <code>renderNavigationView()</code> 函数。这个函数会返回 drawer 中渲染出来的内容。在这个示例中，我们渲染的是一个包含在自定义 <code>MenuItem</code> 组件(点击查看 <a href="https://github.com/fbsamples/f8app/blob/master/js/tabs/MenuItem.js" target="_blank" rel="external"><code>MenuItem.js</code></a>)中的 <a href="http://facebook.github.io/react-native/docs/scrollview.html" target="_blank" rel="external"><code>ScrollView</code></a> 组件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/tabs/F8TabsView.android.js */</span></div><div class="line">renderNavigationView() &#123;</div><div class="line">  ...</div><div class="line">  return(</div><div class="line">    &lt;ScrollView style=&#123;styles.drawer&#125;&gt;</div><div class="line">      &lt;MenuItem</div><div class="line">        title="Schedule"</div><div class="line">        selected=&#123;this.props.activeTab === 'schedule'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'schedule')&#125;</div><div class="line">        icon=&#123;scheduleIcon&#125;</div><div class="line">        selectedIcon=&#123;scheduleIconSelected&#125;</div><div class="line">      /&gt;</div><div class="line">      &lt;MenuItem</div><div class="line">        title="My F8"</div><div class="line">        selected=&#123;this.props.activeTab === 'my-schedule'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'my-schedule')&#125;</div><div class="line">        icon=&#123;require('./schedule/img/my-schedule-icon.png')&#125;</div><div class="line">        selectedIcon=&#123;require('./schedule/img/my-schedule-icon-active.png')&#125;</div><div class="line">      /&gt;</div><div class="line">      &lt;MenuItem</div><div class="line">        title="Map"</div><div class="line">        selected=&#123;this.props.activeTab === 'map'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'map')&#125;</div><div class="line">        icon=&#123;require('./maps/img/maps-icon.png')&#125;</div><div class="line">        selectedIcon=&#123;require('./maps/img/maps-icon-active.png')&#125;</div><div class="line">      /&gt;</div><div class="line">      &lt;MenuItem</div><div class="line">        title="Notifications"</div><div class="line">        selected=&#123;this.props.activeTab === 'notifications'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'notifications')&#125;</div><div class="line">        badge=&#123;this.state.notificationsBadge&#125;</div><div class="line">        icon=&#123;require('./notifications/img/notifications-icon.png')&#125;</div><div class="line">        selectedIcon=&#123;require('./notifications/img/notifications-icon-active.png')&#125;</div><div class="line">      /&gt;</div><div class="line">      &lt;MenuItem</div><div class="line">        title="Info"</div><div class="line">        selected=&#123;this.props.activeTab === 'info'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'info')&#125;</div><div class="line">        icon=&#123;require('./info/img/info-icon.png')&#125;</div><div class="line">        selectedIcon=&#123;require('./info/img/info-icon-active.png')&#125;</div><div class="line">      /&gt;</div><div class="line">    &lt;/ScrollView&gt;</div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>相比之下，iOS 版本直接在 <code>render()</code> 函数中使用了一个不同的内建组件，<a href="http://facebook.github.io/react-native/docs/tabbarios.html" target="_blank" rel="external"><code>TabBarIOS</code></a>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/tabs/F8TabsView.ios.js */</span></div><div class="line">render() &#123;</div><div class="line">  <span class="keyword">var</span> scheduleIcon = <span class="keyword">this</span>.props.day === <span class="number">1</span></div><div class="line">    ? <span class="built_in">require</span>(<span class="string">'./schedule/img/schedule-icon-1.png'</span>)</div><div class="line">    : <span class="built_in">require</span>(<span class="string">'./schedule/img/schedule-icon-2.png'</span>);</div><div class="line">  <span class="keyword">var</span> scheduleIconSelected = <span class="keyword">this</span>.props.day === <span class="number">1</span></div><div class="line">    ? <span class="built_in">require</span>(<span class="string">'./schedule/img/schedule-icon-1-active.png'</span>)</div><div class="line">    : <span class="built_in">require</span>(<span class="string">'./schedule/img/schedule-icon-2-active.png'</span>);</div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    &lt;TabBarIOS tintColor=&#123;F8Colors.darkText&#125;&gt;</div><div class="line">      &lt;TabBarItemIOS</div><div class="line">        title="Schedule"</div><div class="line">        selected=&#123;this.props.activeTab === 'schedule'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'schedule')&#125;</div><div class="line">        icon=&#123;scheduleIcon&#125;</div><div class="line">        selectedIcon=&#123;scheduleIconSelected&#125;&gt;</div><div class="line">        &lt;GeneralScheduleView</div><div class="line">          navigator=&#123;this.props.navigator&#125;</div><div class="line">          onDayChange=&#123;this.handleDayChange&#125;</div><div class="line">        /&gt;</div><div class="line">      &lt;/TabBarItemIOS&gt;</div><div class="line">      &lt;TabBarItemIOS</div><div class="line">        title="My F8"</div><div class="line">        selected=&#123;this.props.activeTab === 'my-schedule'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'my-schedule')&#125;</div><div class="line">        icon=&#123;require('./schedule/img/my-schedule-icon.png')&#125;</div><div class="line">        selectedIcon=&#123;require('./schedule/img/my-schedule-icon-active.png')&#125;&gt;</div><div class="line">        &lt;MyScheduleView</div><div class="line">          navigator=&#123;this.props.navigator&#125;</div><div class="line">          onJumpToSchedule=&#123;() =&gt; this.props.onTabSelect('schedule')&#125;</div><div class="line">        /&gt;</div><div class="line">      &lt;/TabBarItemIOS&gt;</div><div class="line">      &lt;TabBarItemIOS</div><div class="line">        title="Map"</div><div class="line">        selected=&#123;this.props.activeTab === 'map'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'map')&#125;</div><div class="line">        icon=&#123;require('./maps/img/maps-icon.png')&#125;</div><div class="line">        selectedIcon=&#123;require('./maps/img/maps-icon-active.png')&#125;&gt;</div><div class="line">        &lt;F8MapView /&gt;</div><div class="line">      &lt;/TabBarItemIOS&gt;</div><div class="line">      &lt;TabBarItemIOS</div><div class="line">        title="Notifications"</div><div class="line">        selected=&#123;this.props.activeTab === 'notifications'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'notifications')&#125;</div><div class="line">        badge=&#123;this.state.notificationsBadge&#125;</div><div class="line">        icon=&#123;require('./notifications/img/notifications-icon.png')&#125;</div><div class="line">        selectedIcon=&#123;require('./notifications/img/notifications-icon-active.png')&#125;&gt;</div><div class="line">        &lt;F8NotificationsView navigator=&#123;this.props.navigator&#125; /&gt;</div><div class="line">      &lt;/TabBarItemIOS&gt;</div><div class="line">      &lt;TabBarItemIOS</div><div class="line">        title="Info"</div><div class="line">        selected=&#123;this.props.activeTab === 'info'&#125;</div><div class="line">        onPress=&#123;this.onTabSelect.bind(this, 'info')&#125;</div><div class="line">        icon=&#123;require('./info/img/info-icon.png')&#125;</div><div class="line">        selectedIcon=&#123;require('./info/img/info-icon-active.png')&#125;&gt;</div><div class="line">        &lt;F8InfoView navigator=&#123;this.props.navigator&#125; /&gt;</div><div class="line">      &lt;/TabBarItemIOS&gt;</div><div class="line">    &lt;/TabBarIOS&gt;</div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>显而易见，尽管 iOS 菜单接受了相同的数据，但是它的结构略有不同。我们并没有用一个独立的函数创建菜单元素，而是将这些元素作为父级菜单的子元素插入进来，正如 <a href="http://facebook.github.io/react-native/docs/tabbarios-item.html#content" target="_blank" rel="external"><code>TabBarItemIOS</code></a> 组件这样。<br>这里的 <code>TabBarItem</code> 与 Android 中 的 <code>MenuItem</code> 本质上是相同的，唯一的区别是在 Android 组件中我们会定义一个独立的主 <a href="http://facebook.github.io/react-native/docs/view.html#content" target="_blank" rel="external"><code>View</code> 组件</a>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;View style=&#123;styles.content&#125; key=&#123;<span class="keyword">this</span>.props.activeTab&#125;&gt;</div><div class="line">  &#123;<span class="keyword">this</span>.renderContent()&#125;</div><div class="line">&lt;<span class="regexp">/View&gt;</span></div></pre></td></tr></table></figure>
+<p>然后当一个 tab 改变时改变这个组件（通过 <code>renderContent()</code> 函数），而 iOS 组件则会有多个分离的 <code>View</code> 组件，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;GeneralScheduleView</div><div class="line">  navigator=&#123;<span class="keyword">this</span>.props.navigator&#125;</div><div class="line">  onDayChange=&#123;<span class="keyword">this</span>.handleDayChange&#125;</div><div class="line">/&gt;</div></pre></td></tr></table></figure>
+<p>这是 <code>TabBarItem</code> 的一部分，可以点击使它们可见。</p>
+<h1 id="设计迭代周期"><a href="#设计迭代周期" class="headerlink" title="设计迭代周期"></a>设计迭代周期</h1><p>当你构建任何应用，无论是在移动平台还是 web 环境下，调整适配的 UI 元素是非常痛苦的。如果工程师和设计师共同协作，会使整个过程慢下来。</p>
+<p>React Native 包含了一个<a href="http://facebook.github.io/react-native/docs/debugging.html#live-reload" target="_blank" rel="external">实时重载</a>的 debug 功能，可以当 JavaScript 改变时触发刷新应用。这可以在极大程度上减少设计迭代过程，一旦改变了组件样式并保存后，你会立即看到更新的样式。</p>
+<p>但是如果组件在不同条件下看起来不同怎么办呢？举个例子，一个按钮组件可能有一个默认样式，也分别包含按下、执行任务中、执行任务完成时的样式。</p>
+<p>为了避免每次都与应用交互，我们内建了一个用于 debug 视觉效果的 <code>Playgroud</code> 组件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/setup.js */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Playground</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">const</span> content = [];</div><div class="line">    <span class="keyword">const</span> define = <span class="function">(<span class="params">name: string, render: <span class="built_in">Function</span></span>) =&gt;</span> &#123;</div><div class="line">      content.push(<span class="xml"><span class="tag">&lt;<span class="name">Example</span> <span class="attr">key</span>=<span class="string">&#123;name&#125;</span> <span class="attr">render</span>=<span class="string">&#123;render&#125;</span> /&gt;</span>);</span></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    var AddToScheduleButton = require('./tabs/schedule/AddToScheduleButton');</div><div class="line">    AddToScheduleButton.__cards__(define);</div><div class="line">    this.state = &#123;content&#125;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      <span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=&gt;</span></div><div class="line">        &#123;this.state.content&#125;</div><div class="line">      <span class="tag">&lt;/<span class="name">View</span>&gt;</span></div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其实我们只是创建了一个可交换加载的空视图，将其与一些示例定义整合到其中一个 UI 组件中，正如下面这段 <code>AddToScheduleButton.js</code> 所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/tabs/schedule/AddToScheduleButton.js */</span></div><div class="line"><span class="built_in">module</span>.exports.__cards__ = <span class="function">(<span class="params">define</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">let</span> f;</div><div class="line">  setInterval(<span class="function"><span class="params">()</span> =&gt;</span> f &amp;&amp; f(), <span class="number">1000</span>);</div><div class="line"></div><div class="line">  define(<span class="string">'Inactive'</span>, (state = <span class="literal">true</span>, update) =&gt;</div><div class="line">    &lt;AddToScheduleButton isAdded=&#123;state&#125; onPress=&#123;() =&gt; update(!state)&#125; /&gt;);</div><div class="line"></div><div class="line">  define('Active', (state = false, update) =&gt;</div><div class="line">    &lt;AddToScheduleButton isAdded=&#123;state&#125; onPress=&#123;() =&gt; update(!state)&#125; /&gt;);</div><div class="line"></div><div class="line">  define('Animated', (state = false, update) =&gt; &#123;</div><div class="line">    f = () =&gt; update(!state);</div><div class="line">    return &lt;AddToScheduleButton isAdded=&#123;state&#125; /&gt;;</div><div class="line">  &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>我们可以将这个应用转化为一个 UI 预览工具：</p>
+<p><img src="http://makeitopen.com/static/images/button-playground.gif" alt="UI preview playground in action with a button and three different states"></p>
+<p>在这个示例中为这个按钮定义了按下和抬起两种状态，第三个按钮在这两者的状态之间不断循环，以此来预览过渡的动画效果。</p>
+<p>现在，我们可以跟设计师一起快速调整基础组件的视觉样式了。</p>
+<p>如果想用这个功能，<code>&lt;Playground&gt;</code> 组件必须在任何 React Native 应用中都可用，我们需要在 <code>setup()</code> 函数中交换一些代码来加载 <code>&lt;Playground&gt;</code> 组件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/setup.js */</span></div><div class="line">render() &#123;</div><div class="line">  ...</div><div class="line">  return (</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;this.state.store&#125;</span>&gt;</span></span></div><div class="line">      <span class="tag">&lt;<span class="name">F8App</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>变为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* in js/setup.js */</span></div><div class="line">render() &#123;</div><div class="line">  ...</div><div class="line">  return (</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;this.state.store&#125;</span>&gt;</span></span></div><div class="line">      <span class="tag">&lt;<span class="name">Playground</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当然，你也可以修改 <code>&lt;Playground&gt;</code> 组件，使其能够改变引入的其它组件。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/f8APP/" rel="tag"># f8APP</a>
+          
+            <a href="/tags/RN教程/" rel="tag"># RN教程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/28/构建F8-App-part1/" rel="next" title="构建F8-App part1">
+                <i class="fa fa-chevron-left"></i> 构建F8-App part1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/08/构建F8-App-part3/" rel="prev" title="构建F8-App part3">
+                构建F8-App part3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/06/03/构建F8-App-part2/"
+     data-title="构建F8-App part2"
+     data-content=""
+     data-url="http://yoursite.com/2016/06/03/构建F8-App-part2/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/03/构建F8-App-part2/"
+           data-title="构建F8-App part2" data-url="http://yoursite.com/2016/06/03/构建F8-App-part2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Shaopei Bian" />
+          <p class="site-author-name" itemprop="name">Shaopei Bian</p>
+          <p class="site-description motion-element" itemprop="description">君子终日乾乾,夕惕若厉,无咎</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/spbian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/ptlspbian" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/ptlspbian" title="新浪微博" target="_blank">新浪微博</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://user.qzone.qq.com/280960487" title="QQ空间" target="_blank">QQ空间</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ezlippi.com/blog/2016/02/jekyll-to-hexo.html" title="博客支持" target="_blank">博客支持</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#React-Native-思维模式"><span class="nav-number"></span> <span class="nav-text">React Native 思维模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#各种各样的小组件"><span class="nav-number"></span> <span class="nav-text">各种各样的小组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分离复杂差异"><span class="nav-number"></span> <span class="nav-text">分离复杂差异</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内建UI组件"><span class="nav-number"></span> <span class="nav-text">内建UI组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计迭代周期"><span class="nav-number"></span> <span class="nav-text">设计迭代周期</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2012 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaopei Bian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"spbian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("MfaK8tpC2O2MyyI2Sg6c3dtB-gzGzoHsz", "miPc1PpwYyhhGtW0SMRt58JY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

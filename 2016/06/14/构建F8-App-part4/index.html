@@ -1,0 +1,1089 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="f8APP,RN教程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="VeritasAmat-泠泠御风" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在传统软件开发生命周期里，测试环节通常往往仅仅是作为一个临近开发结束时才开始进行的特殊环节。由于新推出开源框架发布时往往并未有任何相关测试技术支持，当使用这些框架进行开发时，这种说法便更接近事实真相。
+   幸运的是， Facebook 在 React Native 构建之初很早的就考虑到了测试策略。在这部分我们将介绍编码阶段如何使用  Nuclide ,  Flow ,  以及 Jest 改善">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建F8-App part4">
+<meta property="og:url" content="http://yoursite.com/2016/06/14/构建F8-App-part4/index.html">
+<meta property="og:site_name" content="VeritasAmat-泠泠御风">
+<meta property="og:description" content="在传统软件开发生命周期里，测试环节通常往往仅仅是作为一个临近开发结束时才开始进行的特殊环节。由于新推出开源框架发布时往往并未有任何相关测试技术支持，当使用这些框架进行开发时，这种说法便更接近事实真相。
+   幸运的是， Facebook 在 React Native 构建之初很早的就考虑到了测试策略。在这部分我们将介绍编码阶段如何使用  Nuclide ,  Flow ,  以及 Jest 改善">
+<meta property="og:image" content="http://makeitopen.com/static/images/redux_logger.png">
+<meta property="og:updated_time" content="2017-02-20T11:29:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建F8-App part4">
+<meta name="twitter:description" content="在传统软件开发生命周期里，测试环节通常往往仅仅是作为一个临近开发结束时才开始进行的特殊环节。由于新推出开源框架发布时往往并未有任何相关测试技术支持，当使用这些框架进行开发时，这种说法便更接近事实真相。
+   幸运的是， Facebook 在 React Native 构建之初很早的就考虑到了测试策略。在这部分我们将介绍编码阶段如何使用  Nuclide ,  Flow ,  以及 Jest 改善">
+<meta name="twitter:image" content="http://makeitopen.com/static/images/redux_logger.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+  <title> 构建F8-App part4 | VeritasAmat-泠泠御风 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63a07f478f5ee797f027057b4eb21d9e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">VeritasAmat-泠泠御风</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/14/构建F8-App-part4/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Shaopei Bian">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="VeritasAmat-泠泠御风">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="VeritasAmat-泠泠御风" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                构建F8-App part4
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-14T19:13:32+08:00">
+                2016-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReactNative/" itemprop="url" rel="index">
+                    <span itemprop="name">ReactNative</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/06/14/构建F8-App-part4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/14/构建F8-App-part4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/06/14/构建F8-App-part4/" class="leancloud_visitors" data-flag-title="构建F8-App part4">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在传统软件开发生命周期里，测试环节通常往往仅仅是作为一个临近开发结束时才开始进行的特殊环节。由于新推出开源框架发布时往往并未有任何相关测试技术支持，当使用这些框架进行开发时，这种说法便更接近事实真相。</p>
+<p>   幸运的是， Facebook 在 React Native 构建之初很早的就考虑到了测试策略。在这部分我们将介绍编码阶段如何使用  <a href="http://nuclide.io/" target="_blank" rel="external">Nuclide</a> ,  <a href="http://flowtype.org/" target="_blank" rel="external">Flow</a> ,  以及 <a href="http://facebook.github.io/jest/" target="_blank" rel="external">Jest</a> 改善 React Native 代码质量。</p>
+<h2 id="Flow-利用类型检查避免编写糟糕代码"><a href="#Flow-利用类型检查避免编写糟糕代码" class="headerlink" title="Flow : 利用类型检查避免编写糟糕代码"></a>Flow : 利用类型检查避免编写糟糕代码</h2><p><a href="http://flowtype.org/" target="_blank" rel="external">Flow</a>为JavaScript 提供以渐进方式工作的<a href="http://flowtype.org/docs/about-flow.html#_" target="_blank" rel="external">静态类型检查</a>，允许我们将 Flow 特性逐步添加到代码中。这是个非常有用的设计。当我们仅仅想为部分代码引入类型检查时， 我们不必为兼容 Flow 而去重写整个 app 。</p>
+<p>我们决定从一开始就完全采用 Flow 来配合 React Native 搭建 F8app，在一切必要的地方添加<a href="http://flowtype.org/docs/type-annotations.html#_" target="_blank" rel="external">类型注解(type annotations )</a> ，让 Flow 能在整个代码开发过程中一直尽情发挥力量。</p>
+<p>下面我们以曾经在<a href="http://makeitopen.com/tutorials/building-the-f8-app/data/" target="_blank" rel="external">数据教程</a>部分曾提及的一个简单 action 作为示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/actions/login.js */</span></div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * @flow</div><div class="line"> */</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">function skipLogin(): Action &#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'SKIPPED_LOGIN'</span>,</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们在文件顶部添加 @Flow 标签（<a href="http://flowtype.org/docs/getting-started.html#_" target="_blank" rel="external">通知 Flow 需检查此段代码</a>）。我们使用 Flow 的<a href="http://flowtype.org/docs/type-annotations.html#_" target="_blank" rel="external">类型注解</a> 限定 skipLogin() 返回值类型必须是 type Action ，由于该Action类型并未在 React Native 及 Redux 里内置，因此在这里我们需要自己对该类型进行定义：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> type Action =</div><div class="line">    &#123; <span class="attr">type</span>: <span class="string">'LOADED_ABOUT'</span>, <span class="attr">list</span>: <span class="built_in">Array</span>&lt;ParseObject&gt; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'LOADED_NOTIFICATIONS'</span>, <span class="attr">list</span>: <span class="built_in">Array</span>&lt;ParseObject&gt; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'LOADED_MAPS'</span>, <span class="attr">list</span>: <span class="built_in">Array</span>&lt;ParseObject&gt; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'LOADED_FRIENDS_SCHEDULES'</span>, <span class="attr">list</span>: <span class="built_in">Array</span>&lt;&#123; <span class="attr">id</span>: string; name: string; schedule: &#123;[key: string]: boolean&#125;; &#125;&gt; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'LOADED_CONFIG'</span>, <span class="attr">config</span>: ParseObject &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'LOADED_SESSIONS'</span>, <span class="attr">list</span>: <span class="built_in">Array</span>&lt;ParseObject&gt; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'LOADED_SURVEYS'</span>, <span class="attr">list</span>: <span class="built_in">Array</span>&lt;<span class="built_in">Object</span>&gt; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'SUBMITTED_SURVEY_ANSWERS'</span>, <span class="attr">id</span>: string; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'LOGGED_IN'</span>, <span class="attr">data</span>: &#123; <span class="attr">id</span>: string; name: string; sharedSchedule: ?boolean; &#125; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'RESTORED_SCHEDULE'</span>, <span class="attr">list</span>: <span class="built_in">Array</span>&lt;ParseObject&gt; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'SKIPPED_LOGIN'</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'LOGGED_OUT'</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'SESSION_ADDED'</span>, <span class="attr">id</span>: string &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'SESSION_REMOVED'</span>, <span class="attr">id</span>: string &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'SET_SHARING'</span>, <span class="attr">enabled</span>: boolean &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'APPLY_TOPICS_FILTER'</span>, <span class="attr">topics</span>: &#123;[key: string]: boolean&#125; &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'CLEAR_FILTER'</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'SWITCH_DAY'</span>, <span class="attr">day</span>: <span class="number">1</span> | <span class="number">2</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'SWITCH_TAB'</span>, <span class="attr">tab</span>: <span class="string">'schedule'</span> | <span class="string">'my-schedule'</span> | <span class="string">'map'</span> | <span class="string">'notifications'</span> | <span class="string">'info'</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'TURNED_ON_PUSH_NOTIFICATIONS'</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'REGISTERED_PUSH_NOTIFICATIONS'</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'SKIPPED_PUSH_NOTIFICATIONS'</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'RECEIVED_PUSH_NOTIFICATION'</span>, <span class="attr">notification</span>: <span class="built_in">Object</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'SEEN_ALL_NOTIFICATIONS'</span> &#125;</div><div class="line">  | &#123; <span class="attr">type</span>: <span class="string">'RESET_NUXES'</span> &#125;</div><div class="line">  ;</div></pre></td></tr></table></figure></p>
+<p>这里我们创建了 <a href="http://flowtype.org/docs/type-aliases.html#_" target="_blank" rel="external">Flow 类型别名（ Flow type alias ）</a>，限定了 type Action 的样式范围。比如，SKIPPED_LOGIN Action 仅能包含一个自己的type标签， LOADED_SURVEYS Action 则会返回 type 标签以及一个 list 列表。相关 Action Creator 如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/actions/surveys.js */</span></div><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadSurveys</span>(<span class="params"></span>): <span class="title">Promise</span>&lt;<span class="title">Action</span>&gt; </span>&#123;</div><div class="line">  <span class="keyword">const</span> list = <span class="keyword">await</span> Parse.Cloud.run(<span class="string">'surveys'</span>);</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'LOADED_SURVEYS'</span>,</div><div class="line">    list,</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们在 app 里使用了大量不同 Action ，强类型检查除了会帮助我们发现类似 type 标签拼写错误这样的低级错误，还会发现如数据格式错误这样的比较重要的问题。</p>
+<p>我们在 Reducers 也进行了一样的强类型检查：mp<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/reducers/surveys.js */</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">surveys</span>(<span class="params">state: State = [], action: Action</span>): <span class="title">State</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span> (action.type === <span class="string">'LOADED_SURVEYS'</span>) &#123;</div><div class="line">    <span class="keyword">return</span> action.list;</div><div class="line">  &#125;</div><div class="line">  ...</div><div class="line">  return state;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由于 <strong>action</strong> 参数被指定为与前面一样的 <strong>Action</strong> 类型，因此 Reducer 函数必须使用一个有效的 <strong>action.type</strong> 。我们通过类型别名为 Reducer <strong>state</strong> 树选项定义样式:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/reducers/user.js */</span></div><div class="line"><span class="keyword">export</span> type State = &#123;</div><div class="line">  <span class="attr">isLoggedIn</span>: boolean;</div><div class="line">  hasSkippedLogin: boolean;</div><div class="line">  sharedSchedule: ?boolean;</div><div class="line">  id: ?;</div><div class="line">  name: ?string;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">const</span> initialState = &#123;</div><div class="line">  <span class="attr">isLoggedIn</span>: <span class="literal">false</span>,</div><div class="line">  <span class="attr">hasSkippedLogin</span>: <span class="literal">false</span>,</div><div class="line">  <span class="attr">sharedSchedule</span>: <span class="literal">null</span>,</div><div class="line">  <span class="attr">id</span>: <span class="literal">null</span>,</div><div class="line">  <span class="attr">name</span>: <span class="literal">null</span>,</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">user</span>(<span class="params">state: State = initialState, action: Action</span>): <span class="title">State</span> </span>&#123;</div><div class="line">  ...</div><div class="line">&#125;</div><div class="line"><span class="string">``</span><span class="string">`  </span></div><div class="line">我们在[数据教程][6]部分曾为你展示过 **initialState** ，现在你会看到，我们是怎样保证 **state** 树选项与 Flow 定义的类型相一致。当 Reducer 发送或者尝试返回任何不符合定义样式的 **state** 时，都会发生 Flow 类型检查错误。</div><div class="line"></div><div class="line">请注意， Folw 检查仅在编译阶段运行， Recat Native packger 则会[自动去除][9]-这意味着在代码中使用 Flow 不会造成任何执行性能损失。</div><div class="line"></div><div class="line">当然，目前每次想对某些代码进行测试时，我们仍然需要手动运行 Flow 类型检查（通过[ Flow 命令行接口][10]）。不过我们可以通过 Nuclide 在编码时进行这样的查验。</div><div class="line">##Nuclide：React Native 开发环境</div><div class="line">[Nuclide 网站][11]上有为 React Native 提供的定制功能的全面介绍。我必须得说， Neculite 是专为 React Native 的 Facebook 研发团队以及 Facebook app 专业研发人员而开发的顶级 React Native IDE 。</div><div class="line"></div><div class="line">Nuclite 对 Flow 的集成格外让我们感兴趣。在这里让我们看看 user Reducer 的一段代码：</div><div class="line">`<span class="string">``</span>javascript</div><div class="line"><span class="keyword">if</span> (action.type === <span class="string">'SKIPPED_LOGIN'</span>) &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">isLoggedIn</span>: <span class="literal">false</span>,</div><div class="line">      <span class="attr">hasSkippedLogin</span>: <span class="literal">true</span>,</div><div class="line">      <span class="attr">sharedSchedule</span>: <span class="literal">null</span>,</div><div class="line">      <span class="attr">id</span>: <span class="literal">null</span>,</div><div class="line">      <span class="attr">name</span>: <span class="literal">null</span>,</div><div class="line">    &#125;;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>前面有提到，我们为 Reducer 函数定义了返回值样式。在 Nuclide ，我们可以实时看到错误发生：</p>
+<video width="1174" height="1002" autoplay loop><br>  <source src="static/videos/flow.mp4" type="video/mp4"><br>  Your browser does not support the HTML5 video tag.<br></video>
+
+<p>若我们有遗漏了 State 类型的任何部分，我们会瞬间收到内容为未返回正确对象类型的反馈。这种概率事件在快速构建 app 时会频繁发生。</p>
+<p>Nuclite 对所有相关 Flow 类型检查都是如此。这意味着在代码还在编写时，类型错误便能暴露出来，同时我们还能对相关问题进行修正。而这一切无需再等到到开发接近完成时才进行。</p>
+<p>这或许并不直观，但确实提高了开发速度。要想在代码中发现遗漏真的是件很困难的事。而在 app 接近开发完成时，这会更加棘手。</p>
+<p>##Jest : 对可能造成 BUG 的改动进行单元测试<br><a href="http://facebook.github.io/jest/" target="_blank" rel="external">jest</a> 是一个面向 JavaScipt 的单元测试框架，同时它在 <a href="http://facebook.github.io/react-native/docs/testing.html#content" target="_blank" rel="external">React Native app</a>下也表现不俗。</p>
+<p>我们h会用这些单元测试（也被称作回归测试）来确保对已经开发完成的结构化代码的改动并未引入 bug 。</p>
+<p>作为例子，下面我们准备通过一个 Jest 测试来保证 Reducer 能够继续按预期处理地图数据：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">jest.autoMockOff();</div><div class="line"></div><div class="line"><span class="keyword">const</span> Parse = <span class="built_in">require</span>(<span class="string">'parse'</span>);</div><div class="line"><span class="keyword">const</span> maps = <span class="built_in">require</span>(<span class="string">'../maps'</span>);</div><div class="line"></div><div class="line">describe(<span class="string">'maps reducer'</span>, () =&gt; &#123;</div><div class="line"></div><div class="line">  it(<span class="string">'is empty by default'</span>, () =&gt; &#123;</div><div class="line">    expect(maps(<span class="literal">undefined</span>, &#123;&#125;)).toEqual([]);</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  it(<span class="string">'populates maps from server'</span>, () =&gt; &#123;</div><div class="line">    <span class="keyword">let</span> list = [</div><div class="line">      <span class="keyword">new</span> Parse.Object(&#123;<span class="attr">mapTitle</span>: <span class="string">'Day 1'</span>, <span class="attr">mapImage</span>: <span class="keyword">new</span> Parse.File(<span class="string">'1.png'</span>)&#125;),</div><div class="line">      <span class="keyword">new</span> Parse.Object(&#123;<span class="attr">mapTitle</span>: <span class="string">'Day 2'</span>, <span class="attr">mapImage</span>: <span class="keyword">new</span> Parse.File(<span class="string">'2.png'</span>)&#125;),</div><div class="line">    ];</div><div class="line"></div><div class="line">    expect(</div><div class="line">      maps([], &#123;<span class="attr">type</span>: <span class="string">'LOADED_MAPS'</span>, list&#125;)</div><div class="line">    ).toEqual([&#123;</div><div class="line">      <span class="attr">id</span>: jasmine.any(<span class="built_in">String</span>),</div><div class="line">      <span class="attr">title</span>: <span class="string">'Day 1'</span>,</div><div class="line">      <span class="attr">url</span>: <span class="string">'1.png'</span>,</div><div class="line">    &#125;, &#123;</div><div class="line">      <span class="attr">id</span>: jasmine.any(<span class="built_in">String</span>),</div><div class="line">      <span class="attr">title</span>: <span class="string">'Day 2'</span>,</div><div class="line">      <span class="attr">url</span>: <span class="string">'2.png'</span>,</div><div class="line">    &#125;]);</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>Jest 本身非常易于阅读（注意：我们甚至对 Jest 测试部分都使用了 Flow 来定义类型），不过我们还是会对此进行进一步的分解。在第 4 行，我们引入了地图的 Reducer 函数(<strong>js/reducers/maps.js</strong>) 这样便能在单元测试中直接调用（Reducer  函数作为 <a href="https://en.wikipedia.org/wiki/Pure_function" target="_blank" rel="external">pure functions</a> 能够很容易完成这些）。</p>
+<p>第一段测试代码位于第 8 行，目的是确保 Recucer 函数返回一个空数组。观察  <strong>js/reducers/maps</strong> 处 Reducer 代码，你会发现 state 并未做任何初始化，因此我们会期待期待单元测试结果为返回空数组。</p>
+<p>第二段测试代码位于第 12 行，目的是确保地图数据被解析 API 检索到的时候能够被 Reducer 函数转化成 <strong>state</strong> 树中对应的正确结构。在这个测试中，我们使用假数据完全模拟真实 API 返回数据结构，这将避免API连接问题导致的测试失败。</p>
+<p>现在我们已经令跑 Jest 测试成为开发工作流程（比如每次提交 git 前）的一部分。这样我们能确保对现有代码的改动不会令 app 默默阵亡。</p>
+<p>由于 Redux Reducers 会改变 <strong>state</strong> 树，不引入 bug 变得绝对至关重要。由 <strong>state</strong> 改变引发的 bug 很容易被忽略。因为它们并 不会造成功能不可用，而仅仅只是造成往 Parse Server 发送错误数据的问题。 Reducer 函数的 pure function 特性令它们成为回归测试的理想对象，因为每次我们都可以准确预知它们会如何执行。</p>
+<p>##调试<br>在你试图对 bug 定位或者修复时，手边有一些调试工具的话。我们已经介绍了<a href="http://makeitopen.com/tutorials/building-the-f8-app/design/#the-design-iteration-cycle" target="_blank" rel="external">如何搭建app可视元素调试系统</a>，那这么处理数据呢？</p>
+<p>我们通过 <a href="http://nuclide.io/" target="_blank" rel="external">Nuclite</a> 和 <a href="http://fcomb.github.io/redux-logger/" target="_blank" rel="external">Redux Logger middleware</a> 来调用<a href="https://facebook.github.io/react-native/docs/debugging.html#chrome-developer-tools" target="_blank" rel="external"> Chrome 开发者工具</a>（ Chrome Developer Tools ），控制台上展示类似 Actions 或 Reducers 中 state 变动这样的新增 Redux 上下文（ context ）:<br><img src="http://makeitopen.com/static/images/redux_logger.png" alt="iOS and Android Segmented Controls Comparison"><br>你可以看到我们是如何通过<strong>configurestore</strong>来启动这个的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* from js/store/configureStore.js */</span></div><div class="line"><span class="keyword">var</span> createLogger = <span class="built_in">require</span>(<span class="string">'redux-logger'</span>);</div><div class="line">...</div><div class="line">var isDebuggingInChrome = __DEV__ &amp;&amp; !!<span class="built_in">window</span>.navigator.userAgent;</div><div class="line"><span class="keyword">var</span> logger = createLogger(&#123;</div><div class="line">  <span class="attr">predicate</span>: <span class="function">(<span class="params">getState, action</span>) =&gt;</span> isDebuggingInChrome,</div><div class="line">  <span class="attr">collapsed</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">duration</span>: <span class="literal">true</span>,</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="keyword">var</span> createF8Store = applyMiddleware(thunk, promise, array, logger)(createStore);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">configureStore</span>(<span class="params">onComplete: ?(</span>) =&gt; <span class="title">void</span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> store = autoRehydrate()(createF8Store)(reducers);</div><div class="line">  persistStore(store, &#123;<span class="attr">storage</span>: AsyncStorage&#125;, onComplete);</div><div class="line">  <span class="keyword">if</span> (isDebuggingInChrome) &#123;</div><div class="line">    <span class="built_in">window</span>.store = store;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> store;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在第 5 行，我们<a href="https://github.com/fcomb/redux-logger#options-1" target="_blank" rel="external">通过一些选项</a>创建了 Logger middleware 。 接着，在第 10 行我们调用 Redux 的<a href="http://redux.js.org/docs/api/applyMiddleware.html" target="_blank" rel="external"> <strong>applyMiddleware()</strong> 函数</a>开始应用 Logger middleware 。这样，我们便可以在控制台上看到日志输出了。</p>
+<p>在第4行我们使用<a href="http://www.w3schools.com/js/js_scope.asp" target="_blank" rel="external">全局变量</a> <strong><strong>DEV</strong></strong>  来触发调试功能，通过布尔值的改动来在调试模式的开关间进行切换。这一举措除了会决定 Logger middleware 创建后是否记录日志（通过<a href="https://github.com/fcomb/redux-logger#predicate--getstate-function-action-object--boolean" target="_blank" rel="external"><strong>断言</strong>选项</a>），还会在第17行 拷贝当前 Store 到 <a href="http://www.w3schools.com/jsref/obj_window.asp" target="_blank" rel="external">Window object</a> ，如此就可以更容易的通过控制台来直接查看 Store 对象。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/f8APP/" rel="tag"># f8APP</a>
+          
+            <a href="/tags/RN教程/" rel="tag"># RN教程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/08/构建F8-App-part3/" rel="next" title="构建F8-App part3">
+                <i class="fa fa-chevron-left"></i> 构建F8-App part3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/15/构建F8-App-Appendix-1-本地运行App/" rel="prev" title="构建F8-App Appendix-1:本地运行App">
+                构建F8-App Appendix-1:本地运行App <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/06/14/构建F8-App-part4/"
+     data-title="构建F8-App part4"
+     data-content=""
+     data-url="http://yoursite.com/2016/06/14/构建F8-App-part4/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/14/构建F8-App-part4/"
+           data-title="构建F8-App part4" data-url="http://yoursite.com/2016/06/14/构建F8-App-part4/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Shaopei Bian" />
+          <p class="site-author-name" itemprop="name">Shaopei Bian</p>
+          <p class="site-description motion-element" itemprop="description">君子终日乾乾,夕惕若厉,无咎</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/spbian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/ptlspbian" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/ptlspbian" title="新浪微博" target="_blank">新浪微博</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://user.qzone.qq.com/280960487" title="QQ空间" target="_blank">QQ空间</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ezlippi.com/blog/2016/02/jekyll-to-hexo.html" title="博客支持" target="_blank">博客支持</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flow-利用类型检查避免编写糟糕代码"><span class="nav-number">1.</span> <span class="nav-text">Flow : 利用类型检查避免编写糟糕代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2012 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaopei Bian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"spbian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("MfaK8tpC2O2MyyI2Sg6c3dtB-gzGzoHsz", "miPc1PpwYyhhGtW0SMRt58JY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

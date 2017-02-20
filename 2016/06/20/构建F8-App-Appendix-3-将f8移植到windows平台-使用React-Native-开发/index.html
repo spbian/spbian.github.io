@@ -1,0 +1,1043 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="f8APP,RN教程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="VeritasAmat-泠泠御风" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="大家可能已经了解到，微软正努力将 React Native 引入到 windows 通用应用平台。对于 React Native 开发者来说，这是一个可以让自己的应用到达 2.7 亿 windows 10 用户（包括手机、电脑、xbox 甚至是 hololens VR眼镜）的绝佳机会。基于同 facebook 的合作以及将 React Native 引入到 windows 所要作出的努力，我们在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建F8-App Appendix-3:在windows平台使用React Native 开发">
+<meta property="og:url" content="http://yoursite.com/2016/06/20/构建F8-App-Appendix-3-将f8移植到windows平台-使用React-Native-开发/index.html">
+<meta property="og:site_name" content="VeritasAmat-泠泠御风">
+<meta property="og:description" content="大家可能已经了解到，微软正努力将 React Native 引入到 windows 通用应用平台。对于 React Native 开发者来说，这是一个可以让自己的应用到达 2.7 亿 windows 10 用户（包括手机、电脑、xbox 甚至是 hololens VR眼镜）的绝佳机会。基于同 facebook 的合作以及将 React Native 引入到 windows 所要作出的努力，我们在">
+<meta property="og:updated_time" content="2017-02-20T11:33:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建F8-App Appendix-3:在windows平台使用React Native 开发">
+<meta name="twitter:description" content="大家可能已经了解到，微软正努力将 React Native 引入到 windows 通用应用平台。对于 React Native 开发者来说，这是一个可以让自己的应用到达 2.7 亿 windows 10 用户（包括手机、电脑、xbox 甚至是 hololens VR眼镜）的绝佳机会。基于同 facebook 的合作以及将 React Native 引入到 windows 所要作出的努力，我们在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+  <title> 构建F8-App Appendix-3:在windows平台使用React Native 开发 | VeritasAmat-泠泠御风 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63a07f478f5ee797f027057b4eb21d9e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">VeritasAmat-泠泠御风</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/20/构建F8-App-Appendix-3-将f8移植到windows平台-使用React-Native-开发/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Shaopei Bian">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="VeritasAmat-泠泠御风">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="VeritasAmat-泠泠御风" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                构建F8-App Appendix-3:在windows平台使用React Native 开发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-20T19:24:09+08:00">
+                2016-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReactNative/" itemprop="url" rel="index">
+                    <span itemprop="name">ReactNative</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/06/20/构建F8-App-Appendix-3-将f8移植到windows平台-使用React-Native-开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/20/构建F8-App-Appendix-3-将f8移植到windows平台-使用React-Native-开发/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/06/20/构建F8-App-Appendix-3-将f8移植到windows平台-使用React-Native-开发/" class="leancloud_visitors" data-flag-title="构建F8-App Appendix-3:在windows平台使用React Native 开发">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>大家可能已经了解到，<a href="https://blogs.windows.com/buildingapps/" target="_blank" rel="external">微软正努力将 React Native 引入到 windows 通用应用平台</a>。对于 React Native 开发者来说，这是一个可以让自己的应用到达 2.7 亿 windows 10 用户（包括手机、电脑、xbox 甚至是 hololens VR眼镜）的绝佳机会。基于同 facebook 的合作以及将 React Native 引入到 windows 所要作出的努力，我们在 windows 应用商店发布了<a href="https://www.microsoft.com/en-us/store/apps/f8-developer-conference/9nblggh4ntvn" target="_blank" rel="external"> F8 开发者大会应用</a>。 所有代码的移植基于最近开源的<a href="https://github.com/fbsamples/f8app" target="_blank" rel="external"> F8 github 代码库</a>。</p>
+<p>下面这个视频演示了在UWP( windows 通用应用平台)上运行的 F8 应用中源自 React Native 的部分特性：<br><a href="https://www.youtube.com/watch?v=51_M9Dp5X80&amp;feature=youtu.be" target="_blank" rel="external">https://www.youtube.com/watch?v=51_M9Dp5X80&amp;feature=youtu.be</a><br> (国内用户需翻墙才能查看)</p>
+<p>将 F8 应用移植到 windows 平台占用了一个 3 人小组 80/100 的时间，历时 3 周完成。我们将此数据完全透明的公布给大家，主要是基于这样的考虑：决策是否使用 React Native 这样的技术来进行开发，开发效率是一个很重要的参考指标。</p>
+<p>虽然我们揭开了 React Native 在 windows 平台开发的序幕，但当前 React Native 的部分核心视图管理器和原生模块在 windows 上仍不可用， React Native 的第三方依赖库也都还不支持 windows 平台。具体就这个应用来说，缺少针对菜单和过滤器的 SplitView 视图管理器；缺少切换 tab 和会话页的FlipView视图管理器; 在滚动视图管理器里面，缺少合适的运行事件用来处理拖拽和内容视图更新。我们也缺少一个剪贴板模块-用来拷贝粘贴 wifi 的详情；缺少用作导航状态存储的异步存储模块；缺少用作登出和其他警告处理的对话框模块；也缺少一个用来处理应用的信息tab页中的链接行为的启动器模块。对于第三方模块，我们缺少<a href="https://github.com/brentvatne/react-native-linear-gradient" target="_blank" rel="external">线性渐变视图管理器</a>、<a href="https://github.com/facebook/react-native-fbsdk" target="_blank" rel="external">facebook sdk 模块</a>、 <a href="https://github.com/EstebanFuentealba/react-native-share" target="_blank" rel="external">React Native 分享模块</a>。其中一部分，例如启动器模块，花了我们小半天时间搞定。其他更复杂的模块，比如 facebook sdk 模块，花了我们超过 1 天的时间；这里主要的工作量在于找到恰当的原生 api 依赖，然后实现功能并且测试。</p>
+<p>当我们将要把应用发布到应用商店时，发现有一些细节还没有考虑到：发布到商店的应用必须使用 .net 原生环境编译。我们运气不错，很快搞定了这件事。因为其中只有很少的一部分 api 是 .net 原生环境所不支持的（主要是关于反射方面的）；我们只需要<a href="https://github.com/ReactWindows/react-native/commit/9420ff92f7ccc910ceeb6bb88568675da3abcada" target="_blank" rel="external">解决这部分反射相关的问题</a>。</p>
+<p>我们对应用作了一些设计和风格上的调整以让它在 windows phone 上看起来更棒。这里我不会给出太多的细节，因为 <a href="http://makeitopen.com/" target="_blank" rel="external">facebook 已经详细的阐述了如何用 React Native 为 android 和iOS 作平台定制开发</a>, 而这些定制开发的原则也同样适用于 windows 平台。<strong>剔除内核适配、第三方组件适配开发以及发布到应用商店这些工作量，通过 js 语言实现的 windows 平台定制开发和风格调整仅花了 1 名开发者不到 1 周的时间。</strong>请大家留意这个工作量估计，因为在可期待的未来—当 React Native 在 Windows 平台上的成熟度接近 iOS 和 android 的时候，这就是 React Native 应用移植到 windows 时开发者的唯一工作量。下面我给出了一些例子来展现如何让 windows 应用变得不同（与 iOS 和 android 应用相比）。</p>
+<p>F8 ListContainer 组件的平台特定风格设置代码:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var styles = StyleSheet.create(&#123;</div><div class="line"><span class="attr">  container:</span> &#123;</div><div class="line"><span class="attr">    flex:</span> <span class="number">1</span>,</div><div class="line"><span class="attr">    backgroundColor:</span> <span class="string">'white'</span>,</div><div class="line">  &#125;,</div><div class="line"><span class="attr">  listView:</span> &#123;</div><div class="line"><span class="attr">    ios:</span> &#123;</div><div class="line"><span class="attr">      backgroundColor:</span> <span class="string">'transparent'</span>,</div><div class="line">    &#125;,</div><div class="line"><span class="attr">    android:</span> &#123;</div><div class="line"><span class="attr">      backgroundColor:</span> <span class="string">'white'</span>,</div><div class="line">    &#125;,</div><div class="line"><span class="attr">    windows:</span> &#123;</div><div class="line"><span class="attr">      backgroundColor:</span> <span class="string">'white'</span>,</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line"><span class="attr">  headerTitle:</span> &#123;</div><div class="line"><span class="attr">    color:</span> <span class="string">'white'</span>,</div><div class="line"><span class="attr">    fontWeight:</span> <span class="string">'bold'</span>,</div><div class="line"><span class="attr">    fontSize:</span> <span class="number">20</span>,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>F8TabsView.window.js 中：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">F8TabsView</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  ...</div><div class="line"> </div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;<span class="type">F8SplitView</span></div><div class="line">        ref=<span class="string">"splitView"</span></div><div class="line">        paneWidth=&#123;<span class="number">290</span>&#125;</div><div class="line">        panePosition=<span class="string">"left"</span></div><div class="line">        renderPaneView=&#123;<span class="keyword">this</span>.renderPaneView&#125;&gt;</div><div class="line">        &lt;<span class="type">View</span> style=&#123;styles.content&#125; key=&#123;<span class="keyword">this</span>.props.tab&#125;&gt;</div><div class="line">          &#123;<span class="keyword">this</span>.renderContent()&#125;</div><div class="line">        &lt;/<span class="type">View</span>&gt;</div><div class="line">      &lt;/<span class="type">F8SplitView</span>&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对比 F8TabsView.android.js：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">F8TabsView</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  ...</div><div class="line"> </div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;<span class="type">F8DrawerLayout</span></div><div class="line">        ref=<span class="string">"drawer"</span></div><div class="line">        drawerWidth=&#123;<span class="number">290</span>&#125;</div><div class="line">        drawerPosition=<span class="string">"left"</span></div><div class="line">        renderNavigationView=&#123;<span class="keyword">this</span>.renderNavigationView&#125;&gt;</div><div class="line">        &lt;<span class="type">View</span> style=&#123;styles.content&#125; key=&#123;<span class="keyword">this</span>.props.tab&#125;&gt;</div><div class="line">          &#123;<span class="keyword">this</span>.renderContent()&#125;</div><div class="line">        &lt;/<span class="type">View</span>&gt;</div><div class="line">      &lt;/<span class="type">F8DrawerLayout</span>&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对比 F8TabsView.ios.js：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">F8TabsView</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  ...</div><div class="line"> </div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;<span class="type">TabBarIOS</span> tintColor=&#123;<span class="type">F8Colors</span>.darkText&#125;&gt;</div><div class="line">        &lt;<span class="type">TabBarItemIOS</span>&gt;</div><div class="line">          ...</div><div class="line">        &lt;/<span class="type">TabBarItemIOS</span>&gt;</div><div class="line">        ...</div><div class="line">      &lt;/<span class="type">TabBarIOS</span>&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> React Native 的理念是做一个“水平的平台“，意思是更倾向于”learn once, write anywhere”，以区别于 java 的”write once, run everywhere”。虽然我们的 F8 windows 应用体验接近于 Android，但如果有更多的开发时间，我们很可能会修改其界面和菜单让它看起来更像是一个 windows 应用。例如在 XAML 中，SplitView 支持一种紧凑的显示模式，其 panel 关闭时该视图仅从一个下拉菜单里显示所有的 icon 图片。对应用的桌面版本和 <a href="https://msdn.microsoft.com/en-us/library/windows/hardware/dn917883%28v=vs.85%29.aspx" target="_blank" rel="external">continuum</a> 特性来说，这个体验很棒。同时，在 XAML 中 pivot 被广泛用于翻页，拥有 pivot 风格的页面和会话标题对 windows 用户来说将会是更熟悉的体验。</p>
+<p>总的来说，我们基于 React Native 将 F8 开发者大会应用移植到 windows 的过程让人感觉很好； React Native 应用移植到 windows 平台也将会变得越来越容易。我们希望我们所作出的努力可以证明在 windows 平台上用 React Native 开发绝不仅仅是实验性质的。通过社区的强大支持，它可能为你的 React Native 应用带来更广泛的受众（来自 windows 平台的用户）；这是一个属于 React Native 开发者的绝好机会。</p>
+<p>在 5 月 13 日爱尔兰都柏林举行的 <a href="http://www.decodedshow.com/events/" target="_blank" rel="external">DECODED Conference</a> 上，我们将继续讨论此次移植的经验以及其他一些关于在 windows 上使用 React Native 的议题。此外，这里有一篇文章，分享了另一个微软的团队<a href="http://microsoft.github.io/code-push/articles/ReactNativeWindows.html" target="_blank" rel="external">在 UWP 平台上使用 CodePush 实现 React Native 代码热更新</a>的经验。<br>特别感谢 <a href="https://github.com/mpodwysocki" target="_blank" rel="external">Matt Podwysocki</a> 和 <a href="https://github.com/ebragge" target="_blank" rel="external">Eero Bragge</a> ，是他们的努力工作才得以让 F8 windows 应用如期到来。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/f8APP/" rel="tag"># f8APP</a>
+          
+            <a href="/tags/RN教程/" rel="tag"># RN教程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/18/构建F8-App-Appendix-2-使用Relay和GraphQL/" rel="next" title="构建F8-App Appendix-2:使用Relay和GraphQL">
+                <i class="fa fa-chevron-left"></i> 构建F8-App Appendix-2:使用Relay和GraphQL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/06/20/构建F8-App-Appendix-3-将f8移植到windows平台-使用React-Native-开发/"
+     data-title="构建F8-App Appendix-3:在windows平台使用React Native 开发"
+     data-content=""
+     data-url="http://yoursite.com/2016/06/20/构建F8-App-Appendix-3-将f8移植到windows平台-使用React-Native-开发/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/20/构建F8-App-Appendix-3-将f8移植到windows平台-使用React-Native-开发/"
+           data-title="构建F8-App Appendix-3:在windows平台使用React Native 开发" data-url="http://yoursite.com/2016/06/20/构建F8-App-Appendix-3-将f8移植到windows平台-使用React-Native-开发/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Shaopei Bian" />
+          <p class="site-author-name" itemprop="name">Shaopei Bian</p>
+          <p class="site-description motion-element" itemprop="description">君子终日乾乾,夕惕若厉,无咎</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/spbian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/ptlspbian" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/ptlspbian" title="新浪微博" target="_blank">新浪微博</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://user.qzone.qq.com/280960487" title="QQ空间" target="_blank">QQ空间</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ezlippi.com/blog/2016/02/jekyll-to-hexo.html" title="博客支持" target="_blank">博客支持</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2012 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaopei Bian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"spbian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("MfaK8tpC2O2MyyI2Sg6c3dtB-gzGzoHsz", "miPc1PpwYyhhGtW0SMRt58JY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
